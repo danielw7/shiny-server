@@ -1,0 +1,15 @@
+---
+title: "intro"
+runtime: shiny
+output: html_document
+---
+
+## How this application works
+
+This application enables you to do the following:
+
+1. Calculate strength values for tennis players by surface and compare them to each other (tab **Strength Analysis**). In order to do this, write the names of the players into the text fields of the sidebar panel, choose the surface the game is played on and confirm with `Update analysis`. The table in the tab supports you regarding the spelling of names (be aware that an analysis can only be done when each player has two results in the table). If the strength difference is larger than 0.2, the app will tell you to bet on the game.
+
+2. The third tab **Track your bets** shows you all your previous bets. Also, if you decide to bet on a game you just checked, you can choose several additional characteristics (supplementary to players names and surface, i.e. sex, odds, player to bet on, wager and the result) in order to track your bets and analyze them (and eventually adapt your strategy). By one click on the `Submit`-button, the bet with these characteristics will then be saved as a new row into a database.
+
+3. The analysis of your betting history is shown in the tab **Betting Performance**. It displays the overall result additionally to a comparison with the actual performance compared to the expected performance calculated from the odds as well as the results by characteristics as strength level, gender and surface.
