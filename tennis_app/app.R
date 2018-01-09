@@ -309,13 +309,18 @@ server <- function(input, output, session) {
   
   observeEvent(input$update, {
     v$result <- round((all_short1()$win_share -
-                   all_short2()$win_share) +
-      (all_long1()$win_share -
-         all_long2()$win_share), 3)
+                         all_short2()$win_share) +
+                        (all_long1()$win_share -
+                           all_long2()$win_share), 3)
+    
+    v$result_display <- abs(round((all_short1()$win_share -
+                                     all_short2()$win_share) +
+                                    (all_long1()$win_share -
+                                       all_long2()$win_share), 3))
   })
   
   # update strength in input in order to submit it to the database
-  observe({updateNumericInput(session, "strength", value = v$result)})
+  observe({updateNumericInput(session, "strength", value = v$result_display)})
   
   # output Text ####
   output$winner <- renderText({
