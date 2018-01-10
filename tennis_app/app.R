@@ -52,8 +52,8 @@ WTA2007 <- read.csv('/srv/shiny-server/tennis_app/wta_2007.csv', header = T, dec
 WTA2006 <- read.csv('/srv/shiny-server/tennis_app/wta_2006.csv', header = T, dec = '.', sep = ',')
 WTA2005 <- read.csv('/srv/shiny-server/tennis_app/wta_2005.csv', header = T, dec = '.', sep = ',')
 
-####  bind_rows (instead of rbind which is slower)  ####
-all <-  bind_rows(ATP2005, ATP2006, ATP2007, ATP2008, ATP2009, ATP2010, ATP2011,
+####  bind rows  ####
+all <-  rbind(ATP2005, ATP2006, ATP2007, ATP2008, ATP2009, ATP2010, ATP2011,
                   ATP2012, ATP2013, ATP2014, ATP2015, ATP2016, ATP2017, WTA2005, 
                   WTA2006, WTA2007, WTA2008, WTA2009, WTA2010, WTA2011,
                   WTA2012, WTA2013, WTA2014, WTA2015, WTA2016, WTA2017)
@@ -350,7 +350,7 @@ server <- function(input, output, session) {
   
   # output table  ####
   output$table <- DT::renderDataTable({
-    bind_rows(all_long1()[, c(1, 9)], all_long2()[, c(1, 9)], all_short1()[, c(1, 9)], all_short2()[, c(1, 9)]) %>%
+    rbind(all_long1()[, c(1, 9)], all_long2()[, c(1, 9)], all_short1()[, c(1, 9)], all_short2()[, c(1, 9)]) %>%
       datatable(
         style = "bootstrap",
         colnames = c('Player', 'Win-Share'),
@@ -388,7 +388,7 @@ server <- function(input, output, session) {
   profit_loss <- ifelse(loadData()$result == "bet won", loadData()$wager * loadData()$odds - loadData()$wager,
                   ifelse(loadData()$result == "bet lost",  0 - loadData()$wager, 0))
 
-  total_win <- sum(profit_loss)
+  total_win <- round(sum(profit_loss), 2)
   share_wins_total <- sum(loadData()$result == "bet won") / length(loadData()$result)
   share_wins_smaller2 <- sum(loadData()[loadData()$strength < 0.2, ]$result == "bet won") /
                                    length(loadData()[loadData()$strength < 0.2, ]$result)
