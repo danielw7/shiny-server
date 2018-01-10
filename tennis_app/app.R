@@ -388,7 +388,7 @@ server <- function(input, output, session) {
   profit_loss <- ifelse(loadData()$result == "bet won", loadData()$wager * loadData()$odds - loadData()$wager,
                   ifelse(loadData()$result == "bet lost",  0 - loadData()$wager, 0))
 
-  total_win <- sum(profit_loss)
+  total_win <- round(sum(profit_loss), 2)
   share_wins_total <- sum(loadData()$result == "bet won") / length(loadData()$result)
   share_wins_smaller2 <- sum(loadData()[loadData()$strength < 0.2, ]$result == "bet won") /
                                    length(loadData()[loadData()$strength < 0.2, ]$result)
